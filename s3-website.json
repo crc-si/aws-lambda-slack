@@ -1,0 +1,25 @@
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    "Description": "Buckets used for the website and associated core systems.",
+    "Resources" : {
+        "Bucket" : {
+        "Type" : "AWS::S3::Bucket",
+        "Properties" : {
+            "BucketName" :  "slack.sssi.org.au",
+            "AccessControl" : "PublicRead",
+            "WebsiteConfiguration" : {
+            "IndexDocument" : "index.html",
+            "ErrorDocument" : "error.html"
+            },
+            "CorsConfiguration": {
+            "CorsRules" : [{
+                "AllowedHeaders" : [ "Authorization" ],
+                "AllowedMethods" : [ "GET" ],
+                "AllowedOrigins" : [ "*" ],
+                "MaxAge" : 3000
+            }]
+            }
+        }
+        }
+    }
+}
