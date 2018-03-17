@@ -4,7 +4,7 @@
 #
 #######################################
 
-AWS_REGION="${AWS_REGION:-us-west-2}"
+AWS_REGION="${AWS_REGION:-ap-southeast-2}"
 
 ORIG_DIR=`pwd`
 SCRIPT_NAME="$0"
@@ -127,12 +127,18 @@ do_update() {
 
   echo "update"
 
-  do_validate
-
-  # do_validate \
-  #   && $AWS_CLI cloudformation update-stack --stack-name slackinviter --template-body file:////$TEMPLATE \
-  #   && echo "Deployed, waiting on completion..." \
-  #   && $AWS_CLI cloudformation wait stack-update-complete --stack-name slackinviter
+  do_validate \
+    && $AWS_CLI cloudformation update-stack \
+      --stack-name slackinviter \
+      --parameters \
+        ParameterKey=SlackTeamSubDomain,ParameterValue=$SLACK_DOMAIN \
+        ParameterKey=SlackAuthToken,ParameterValue=$SLACK_TOKEN \
+        ParameterKey=Origin,ParameterValue=$WEB_ORIGIN \
+      --capabilities CAPABILITY_NAMED_IAM \
+      --template-body file:////$TEMPLATE | jq \
+    && echo "Updated, waiting on completion..." \
+    && $AWS_CLI cloudformation wait stack-update-complete --stack-name slackinviter \
+    && echo "Update complete"
 }
 
 do_geturls() {
