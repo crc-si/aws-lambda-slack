@@ -14,8 +14,8 @@
     "Origin": {
       "Description": "Origin URL for CORS",
       "Type": "String"
-    },
-  },  
+    }
+  },
   "Resources": {
     "LambdaApiGatewayExecutionPermission": {
         "Type": "AWS::Lambda::Permission",
@@ -166,7 +166,7 @@
       "Properties": {
         "RestApiId": { "Ref": "SlackInviterRestApi" },
         "ParentId": { "Fn::GetAtt": ["SlackInviterRestApi", "RootResourceId"] },
-        "PathPart" : "invite",
+        "PathPart" : "invite"
       }
     },
     "SlackInviterOptionsMethod": {
