@@ -1,4 +1,4 @@
-BUCKET=slack.opendatacube.com
+BUCKET=slack.opendatacube.org
 
 deploy:
 	aws cloudformation create-stack \
@@ -7,7 +7,7 @@ deploy:
 		--parameters \
 			ParameterKey=SlackTeamSubDomain,ParameterValue=opendatacube \
 			ParameterKey=SlackAuthToken,ParameterValue=$(SLACK_TOKEN) \
-			ParameterKey=Origin,ParameterValue=http://slack.opendatacube.com \
+			ParameterKey=Origin,ParameterValue=https://www.opendatacube.org \
 		--template-body=file://cloudformation.json
 
 deploy-s3:
