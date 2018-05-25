@@ -7,7 +7,17 @@ deploy:
 		--parameters \
 			ParameterKey=SlackTeamSubDomain,ParameterValue=opendatacube \
 			ParameterKey=SlackAuthToken,ParameterValue=$(SLACK_TOKEN) \
-			ParameterKey=Origin,ParameterValue=https://www.opendatacube.org \
+			ParameterKey=Origin,ParameterValue=http://slack.opendatacube.org \
+		--template-body=file://cloudformation.json
+
+update: 
+	aws cloudformation update-stack \
+		--capabilities CAPABILITY_NAMED_IAM \
+		--stack-name slack-joiner-odc \
+		--parameters \
+			ParameterKey=SlackTeamSubDomain,ParameterValue=opendatacube \
+			ParameterKey=SlackAuthToken,ParameterValue=$(SLACK_TOKEN) \
+			ParameterKey=Origin,ParameterValue=http://slack.opendatacube.org \
 		--template-body=file://cloudformation.json
 
 deploy-s3:
